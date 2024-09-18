@@ -1,0 +1,23 @@
+[
+  {
+    "Rating": 4.7,
+    "Instructor": "Chirag Kalra",
+    "Title": "Fullstack React with Typescript: Become a Frontend Master",
+    "Price": 29.99,
+    "Image": "https://learnify-assets.s3.amazonaws.com/Images/react-typescript.png"
+  },
+  {
+    "Rating": 4.5,
+    "Instructor": "Chirag Kalra",
+    "Title": "Fullstack Angular with a real world Application",
+    "Price": 29.99,
+    "Image": "https://learnify-assets.s3.amazonaws.com/Images/fullstack-angular.png"
+  },
+  {
+    "Rating": 4.4,
+    "Instructor": "Chirag Kalra",
+    "Title": "Backend with Node.JS: Write your own Server",
+    "Price": 16.99,
+    "Image": "https://learnify-assets.s3.amazonaws.com/Images/backend-with-node.png"
+  }
+]

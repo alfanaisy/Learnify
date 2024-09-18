@@ -1,0 +1,11 @@
+D:\Devs\dotnet\Learnify\Entity\bin\Debug\net8.0\Entity.deps.json
+D:\Devs\dotnet\Learnify\Entity\bin\Debug\net8.0\Entity.dll
+D:\Devs\dotnet\Learnify\Entity\bin\Debug\net8.0\Entity.pdb
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.GeneratedMSBuildEditorConfig.editorconfig
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.AssemblyInfoInputs.cache
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.AssemblyInfo.cs
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.csproj.CoreCompileInputs.cache
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.dll
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\refint\Entity.dll
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.pdb
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\ref\Entity.dll
