@@ -1,6 +1,7 @@
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
+var MyCorsPolicy = "CorsPolicy";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +12,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<StoreContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: MyCorsPolicy, builder => {
+        builder
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -38,8 +48,9 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 app.UseRouting();
-app.MapControllers();
+app.UseCors(MyCorsPolicy);
 app.UseAuthorization();
+app.MapControllers();
 
 await app.RunAsync();
 
