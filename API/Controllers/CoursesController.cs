@@ -17,13 +17,19 @@ public class CoursesController: BaseController
     [HttpGet]
     public async Task<ActionResult<List<Course>>> GetCourses()
     {
+      var listOfInt = new int[]{1,2,3,4,5};
       return await _context.Courses.ToListAsync();
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Course>> GetCourse(Guid id)
     {
-      return await _context.Courses.FindAsync(id);
+      var result = await _context.Courses.FindAsync(id);
+      if (result == null)
+      {
+        return NotFound();
+      }
+      return Ok(result);
     }
 
 }

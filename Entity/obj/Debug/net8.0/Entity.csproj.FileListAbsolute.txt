@@ -9,3 +9,4 @@ D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.dll
 D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\refint\Entity.dll
 D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.pdb
 D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\ref\Entity.dll
+D:\Devs\dotnet\Learnify\Entity\obj\Debug\net8.0\Entity.sourcelink.json
