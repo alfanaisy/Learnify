@@ -56,6 +56,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/redirect/{0}");
 app.UseRouting();
 app.UseCors(MyCorsPolicy);
 app.UseAuthorization();
