@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 // Repos
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddDbContext<StoreContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
