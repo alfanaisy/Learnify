@@ -1,17 +1,20 @@
 using Entity;
 using Entity.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
-public class CourseRepository : ICourseRepository
+public class CourseRepository(StoreContext context) : ICourseRepository
 {
-    public Task<Course> GetCourseByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+  private readonly StoreContext _context = context;
 
-    public Task<IReadOnlyList<Course>> GetCoursesAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<Course?> GetCourseByIdAsync(Guid id)
+  {
+    return await _context.Courses.FindAsync(id);
+  }
+
+  public async Task<IReadOnlyList<Course>> GetCoursesAsync()
+  {
+    return await _context.Courses.ToListAsync();
+  }
 }
