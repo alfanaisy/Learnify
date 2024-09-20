@@ -2,6 +2,7 @@ using API.Dto;
 using AutoMapper;
 using Entity;
 using Entity.Interfaces;
+using Entity.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -21,7 +22,8 @@ public class CategoriesController(IGenericRepository<Category> repository, IMapp
   [HttpGet("{id}")]
   public async Task<ActionResult<CategoryDto>> GetCategoryById(int id)
   {
-    var category = await _repository.GetByIdAsync(id);
+    var spec = new CategoriesWithCoursesSpecification(id);
+    var category = await _repository.GetEntityWithSpec(spec);
     if(category == null) 
     {
       return NotFound();
