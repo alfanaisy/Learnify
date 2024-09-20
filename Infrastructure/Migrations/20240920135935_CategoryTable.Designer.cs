@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240920134607_CategoryTable")]
+    [Migration("20240920135935_CategoryTable")]
     partial class CategoryTable
     {
         /// <inheritdoc />
@@ -74,7 +74,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Students")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Subtitle")
+                    b.Property<string>("SubTitle")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

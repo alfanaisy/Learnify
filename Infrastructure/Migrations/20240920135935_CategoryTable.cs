@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
                     Instructor = table.Column<string>(type: "TEXT", nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(18,1)", nullable: false),
                     Image = table.Column<string>(type: "TEXT", nullable: false),
-                    Subtitle = table.Column<string>(type: "TEXT", nullable: false),
+                    SubTitle = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     Students = table.Column<int>(type: "INTEGER", nullable: false),
                     Language = table.Column<string>(type: "TEXT", nullable: false),

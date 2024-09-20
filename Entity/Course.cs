@@ -7,7 +7,7 @@ public class Course: BaseEntity
   public string? Instructor { get; set; }
   public decimal Rating { get; set; }
   public string? Image { get; set; }
-  public string? Subtitle {get; set;}
+  public string? SubTitle {get; set;}
   public string? Description { get; set; }
   public int Students { get; set; }
   public string? Language { get; set; }

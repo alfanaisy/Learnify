@@ -71,7 +71,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Students")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Subtitle")
+                    b.Property<string>("SubTitle")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
