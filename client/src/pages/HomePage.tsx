@@ -1,5 +1,11 @@
+import Courses from '../components/Courses';
+
 const HomePage = () => {
-  return <h1>HomePage</h1>;
+  return (
+    <div>
+      <Courses />
+    </div>
+  );
 };
 
 export default HomePage;
