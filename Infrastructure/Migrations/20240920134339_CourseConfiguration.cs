@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CourseProperties : Migration
+    public partial class CourseConfiguration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,15 +29,15 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
                     Price = table.Column<float>(type: "REAL", nullable: false),
-                    Instructor = table.Column<string>(type: "TEXT", nullable: true),
-                    Rating = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Image = table.Column<string>(type: "TEXT", nullable: true),
-                    Subtitle = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Instructor = table.Column<string>(type: "TEXT", nullable: false),
+                    Rating = table.Column<decimal>(type: "decimal(18,1)", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: false),
+                    Subtitle = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     Students = table.Column<int>(type: "INTEGER", nullable: false),
-                    Language = table.Column<string>(type: "TEXT", nullable: true),
+                    Language = table.Column<string>(type: "TEXT", nullable: false),
                     Level = table.Column<string>(type: "TEXT", nullable: true),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "TEXT", nullable: false)
