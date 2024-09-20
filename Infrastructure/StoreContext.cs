@@ -10,4 +10,6 @@ public class StoreContext : DbContext
     }
 
     public DbSet<Course> Courses { get; set; }
+    public DbSet<Requirement> Requirements { get; set; }
+    public DbSet<Learning> Learnings { get; set; }
 }
