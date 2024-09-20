@@ -6,22 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-public class CategoriesController(ICategoryRepository repository, IMapper mapper): BaseController
+public class CategoriesController(IGenericRepository<Category> repository, IMapper mapper): BaseController
 {
-  private readonly ICategoryRepository _repository = repository;
+  private readonly IGenericRepository<Category> _repository = repository;
   private readonly IMapper _mapper = mapper;
 
   [HttpGet]
   public async Task<ActionResult<List<CategoriesDto>>> GetCategories()
   {
-    var categories = await _repository.GetCategoriesAsync();
+    var categories = await _repository.ListAllAsync();
     return Ok(_mapper.Map<IReadOnlyList<Category>, IReadOnlyList<CategoriesDto>>(categories));
   }
 
   [HttpGet("{id}")]
   public async Task<ActionResult<CategoryDto>> GetCategoryById(int id)
   {
-    var category = await _repository.GetCategoryByIdAsync(id);
+    var category = await _repository.GetByIdAsync(id);
     if(category == null) 
     {
       return NotFound();
