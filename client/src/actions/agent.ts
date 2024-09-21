@@ -24,6 +24,7 @@ const Courses = {
 
 const Categories = {
   list: () => requests.get<Category[]>('/categories'),
+  getCategory: (id: number) => requests.get<Category>(`/categories/${id}`),
 };
 
 const agent = {

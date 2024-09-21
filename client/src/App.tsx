@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import DetailPage from './pages/DetailPage';
 import Layout from './layout';
 import 'antd/dist/reset.css';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ function App() {
         {
           path: '/detail',
           element: <DetailPage />,
+        },
+        {
+          path: '/category/:id',
+          element: <CategoryPage />,
         },
       ],
     },
