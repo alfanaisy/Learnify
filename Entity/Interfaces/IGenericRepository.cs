@@ -8,4 +8,5 @@ public interface IGenericRepository<T>
   Task<T> GetByIdAsync(dynamic id);
   Task<IReadOnlyList<T>> ListWithSpec(ISpecification<T> spec);
   Task<T?> GetEntityWithSpec(ISpecification<T> spec);
+  Task<int> CountResultAsync(ISpecification<T> spec);
 }
