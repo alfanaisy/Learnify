@@ -5,7 +5,10 @@ namespace Entity.Specifications;
 public class CourseWithCategoriesSpecification: BaseSpecification<Course>
 {
   public CourseWithCategoriesSpecification(CourseParams courseParams)
-    : base(courseParams.CategoryId.HasValue ? (Expression<Func<Course, bool>>)(x => x.CategoryId == courseParams.CategoryId) : null)
+    : base(x =>
+      (string.IsNullOrEmpty(courseParams.Search) || x.Title!.ToLower().Contains(courseParams.Search)) &&
+      (!courseParams.CategoryId.HasValue || x.CategoryId == courseParams.CategoryId)
+      )
   {
     IncludeMethod(x => x.Category!);
 

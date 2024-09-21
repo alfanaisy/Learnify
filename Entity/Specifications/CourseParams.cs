@@ -15,5 +15,11 @@ public class CourseParams
       _pageSize = value > MaxPageSize ? 20 : value;
     }
   }
+  private string? _search;
+  public string? Search
+  {
+    get { return _search; } 
+    set { _search = value?.ToLower(); }
+  }
   
 }
