@@ -23,7 +23,12 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 builder.Services.AddDbContext<StoreContext>(options => 
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("DefaultConnection"), 
+        options => options.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+    );
+});
 
 builder.Services.AddCors(options => {
     options.AddPolicy(name: MyCorsPolicy, builder => {

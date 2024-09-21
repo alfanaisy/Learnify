@@ -2,15 +2,17 @@ using System.Linq.Expressions;
 
 namespace Entity.Specifications;
 
-public class CourseWithCategoriesSpecification: BaseSpecification<Course>
+public class CoursesWithCategoriesSpecification: BaseSpecification<Course>
 {
-  public CourseWithCategoriesSpecification(CourseParams courseParams)
+  public CoursesWithCategoriesSpecification(CourseParams courseParams)
     : base(x =>
       (string.IsNullOrEmpty(courseParams.Search) || x.Title!.ToLower().Contains(courseParams.Search)) &&
       (!courseParams.CategoryId.HasValue || x.CategoryId == courseParams.CategoryId)
       )
   {
     IncludeMethod(x => x.Category!);
+    IncludeMethod(c => c.Requirements!);
+    IncludeMethod(c => c.Learnings!);
 
     ApplyPagination(courseParams.PageSize, courseParams.PageSize * (courseParams.PageIndex-1));
 
@@ -32,10 +34,11 @@ public class CourseWithCategoriesSpecification: BaseSpecification<Course>
 
   }
 
-  public CourseWithCategoriesSpecification(Guid id): base(x => x.Id == id)
+  public CoursesWithCategoriesSpecification(Guid id): base(x => x.Id == id)
   {
     IncludeMethod(c => c.Category!);
     IncludeMethod(c => c.Requirements!);
     IncludeMethod(c => c.Learnings!);
+    SortMethod(x => x.Id);
   }
 }

@@ -16,7 +16,7 @@ public class CoursesController(IGenericRepository<Course> repository, IMapper ma
     [HttpGet]
   public async Task<ActionResult<Pagination<CourseDto>>> GetCourses([FromQuery]CourseParams courseParams)
   {
-    var spec = new CourseWithCategoriesSpecification(courseParams);
+    var spec = new CoursesWithCategoriesSpecification(courseParams);
     var countSpec = new CoursesFiltersCountSpecification(courseParams);
     var total = await _repository.CountResultAsync(countSpec); 
 
@@ -29,7 +29,7 @@ public class CoursesController(IGenericRepository<Course> repository, IMapper ma
   [HttpGet("{id}")]
   public async Task<ActionResult<CourseDto>> GetCourse(Guid id)
   {
-    var spec = new CourseWithCategoriesSpecification(id);
+    var spec = new CoursesWithCategoriesSpecification(id);
     var course = await _repository.GetEntityWithSpec(spec);
     if (course == null)
     {
