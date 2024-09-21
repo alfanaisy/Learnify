@@ -1,9 +1,11 @@
+using System.Linq.Expressions;
 
 namespace Entity.Specifications;
 
 public class CourseWithCategoriesSpecification: BaseSpecification<Course>
 {
-  public CourseWithCategoriesSpecification(string? sort)
+  public CourseWithCategoriesSpecification(string? sort, int? categoryId)
+    : base(categoryId.HasValue ? (Expression<Func<Course, bool>>)(x => x.CategoryId == categoryId) : null)
   {
     IncludeMethod(x => x.Category!);
 
@@ -22,6 +24,7 @@ public class CourseWithCategoriesSpecification: BaseSpecification<Course>
           break;
       }
     }
+
   }
 
   public CourseWithCategoriesSpecification(Guid id): base(x => x.Id == id)
