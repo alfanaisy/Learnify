@@ -1,4 +1,5 @@
 using API.Helpers;
+using API.Middleware;
 using Entity.Interfaces;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -48,9 +49,10 @@ catch (Exception ex)
 }
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

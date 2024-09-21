@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YTdXZSJa5Pc=",
+  "dgSpecHash": "Abj5m/DMChI=",
   "success": true,
-  "projectFilePath": "D:\\Devs\\dotnet\\Learnify\\API\\API.csproj",
+  "projectFilePath": "d:\\Devs\\dotnet\\Learnify\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alfan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\alfan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

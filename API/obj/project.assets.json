@@ -3381,11 +3381,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Devs\\dotnet\\Learnify\\API\\API.csproj",
+      "projectUniqueName": "d:\\Devs\\dotnet\\Learnify\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\Devs\\dotnet\\Learnify\\API\\API.csproj",
+      "projectPath": "d:\\Devs\\dotnet\\Learnify\\API\\API.csproj",
       "packagesPath": "C:\\Users\\alfan\\.nuget\\packages\\",
-      "outputPath": "D:\\Devs\\dotnet\\Learnify\\API\\obj\\",
+      "outputPath": "d:\\Devs\\dotnet\\Learnify\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\alfan\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3400,8 +3400,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj"
+            "d:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "d:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
