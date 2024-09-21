@@ -1,7 +1,9 @@
+using API.ErrorResponse;
 using API.Helpers;
 using API.Middleware;
 using Entity.Interfaces;
 using Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var MyCorsPolicy = "CorsPolicy";
@@ -30,6 +32,23 @@ builder.Services.AddCors(options => {
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
+});
+
+builder.Services.Configure<ApiBehaviorOptions>(options => {
+    options.InvalidModelStateResponseFactory = actionContext => {
+        var errors = actionContext.ModelState
+            .Where(e => e.Value?.Errors.Count > 0)
+            .SelectMany(x => x.Value!.Errors)
+            .Select(x => x.ErrorMessage)
+            .ToArray();
+
+        var errorResponse = new ApiValidationErrorResponse
+        {
+            Errors = errors
+        };
+
+        return new BadRequestObjectResult(errorResponse);
+    };
 });
 
 var app = builder.Build();

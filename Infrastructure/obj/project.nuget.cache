@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7DxlKbFkHoo=",
+  "dgSpecHash": "DAoRhUvPLno=",
   "success": true,
-  "projectFilePath": "d:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alfan\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.8\\microsoft.data.sqlite.core.8.0.8.nupkg.sha512",
     "C:\\Users\\alfan\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.8\\microsoft.entityframeworkcore.8.0.8.nupkg.sha512",

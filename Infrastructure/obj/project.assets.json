@@ -1207,11 +1207,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "d:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\alfan\\.nuget\\packages\\",
-      "outputPath": "d:\\Devs\\dotnet\\Learnify\\Infrastructure\\obj\\",
+      "outputPath": "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\alfan\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1226,8 +1226,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "d:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj": {
-              "projectPath": "d:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj"
+            "D:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj": {
+              "projectPath": "D:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj"
             }
           }
         }
