@@ -6,7 +6,7 @@ public class CourseParams
   public int? CategoryId { get; set; }
   public int PageIndex { get; set; } = 1;
   private const int MaxPageSize = 20;
-  private int _pageSize = 3;
+  private int _pageSize = 8;
   public int PageSize
   {
     get { return _pageSize; }

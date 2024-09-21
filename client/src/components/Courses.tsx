@@ -4,9 +4,11 @@ import agent from '../actions/agent';
 
 import { Row, Col, Card } from 'antd';
 import { FaStar, FaStarHalf } from 'react-icons/fa';
+import { PaginatedData } from '../models/paginatedData';
+import { IconType } from 'react-icons';
 
 const Courses = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [data, setData] = useState<PaginatedData<Course>>();
   const [spanVal, setSpanVal] = useState<number>();
 
   const checkWidth = () => {
@@ -27,17 +29,17 @@ const Courses = () => {
 
   useEffect(() => {
     agent.Courses.list().then((response) => {
-      setCourses(response);
+      setData(response);
       checkWidth();
     });
   }, []);
 
-  const showStars = (rating: number): [] => {
-    const options: any = [];
+  const showStars = (rating: number): JSX.Element[] => {
+    const options: JSX.Element[] = [];
     for (let i = 1; i < rating; i++) {
-      options.push(<FaStar />);
+      options.push(<FaStar key={i} />);
       if (rating - i < 1 && rating - i > 0.3) {
-        options.push(<FaStarHalf />);
+        options.push(<FaStarHalf key={i + 1} />);
       }
     }
     return options;
@@ -50,25 +52,26 @@ const Courses = () => {
         <h2>New Courses picked just for you...</h2>
       </div>
       <Row gutter={[24, 32]}>
-        {courses.map((course) => {
-          return (
-            <Col key={course.id} className="gutter-row" span={spanVal}>
-              <Card
-                hoverable
-                cover={
-                  <img width="100%" alt="course-cover" src={course.image} />
-                }
-              >
-                <div className="course__title">{course.title}</div>
-                <div className="course__instructor">{course.instructor}</div>
-                <div className="course__rating">
-                  {course.rating} <span>{showStars(course.rating)}</span>
-                </div>
-                <div className="course__price">{course.price}</div>
-              </Card>
-            </Col>
-          );
-        })}
+        {data &&
+          data.data.map((course) => {
+            return (
+              <Col key={course.id} className="gutter-row" span={spanVal}>
+                <Card
+                  hoverable
+                  cover={
+                    <img width="100%" alt="course-cover" src={course.image} />
+                  }
+                >
+                  <div className="course__title">{course.title}</div>
+                  <div className="course__instructor">{course.instructor}</div>
+                  <div className="course__rating">
+                    {course.rating} <span>{showStars(course.rating)}</span>
+                  </div>
+                  <div className="course__price">{course.price}</div>
+                </Card>
+              </Col>
+            );
+          })}
       </Row>
     </div>
   );
