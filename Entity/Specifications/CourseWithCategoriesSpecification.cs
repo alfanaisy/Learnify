@@ -4,14 +4,16 @@ namespace Entity.Specifications;
 
 public class CourseWithCategoriesSpecification: BaseSpecification<Course>
 {
-  public CourseWithCategoriesSpecification(string? sort, int? categoryId)
-    : base(categoryId.HasValue ? (Expression<Func<Course, bool>>)(x => x.CategoryId == categoryId) : null)
+  public CourseWithCategoriesSpecification(CourseParams courseParams)
+    : base(courseParams.CategoryId.HasValue ? (Expression<Func<Course, bool>>)(x => x.CategoryId == courseParams.CategoryId) : null)
   {
     IncludeMethod(x => x.Category!);
 
-    if(!string.IsNullOrEmpty(sort))
+    ApplyPagination(courseParams.PageSize, courseParams.PageSize * (courseParams.PageIndex-1));
+
+    if(!string.IsNullOrEmpty(courseParams.Sort))
     {
-      switch(sort)
+      switch(courseParams.Sort)
       {
         case "priceAscending":
           SortMethod(c => c.Price);
