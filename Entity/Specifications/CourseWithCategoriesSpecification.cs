@@ -1,13 +1,27 @@
 
-using System.Linq.Expressions;
-
 namespace Entity.Specifications;
 
 public class CourseWithCategoriesSpecification: BaseSpecification<Course>
 {
-  public CourseWithCategoriesSpecification()
+  public CourseWithCategoriesSpecification(string? sort)
   {
     IncludeMethod(x => x.Category!);
+
+    if(!string.IsNullOrEmpty(sort))
+    {
+      switch(sort)
+      {
+        case "priceAscending":
+          SortMethod(c => c.Price);
+          break;
+        case "priceDescending":
+          SortByDescendingMethod(c => c.Price);
+          break;
+        default:
+          SortMethod(c => c.Title!);
+          break;
+      }
+    }
   }
 
   public CourseWithCategoriesSpecification(Guid id): base(x => x.Id == id)

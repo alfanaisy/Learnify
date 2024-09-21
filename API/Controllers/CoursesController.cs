@@ -13,9 +13,9 @@ public class CoursesController(IGenericRepository<Course> repository, IMapper ma
     private readonly IMapper _mapper = mapper;
 
     [HttpGet]
-  public async Task<ActionResult<List<CourseDto>>> GetCourses()
+  public async Task<ActionResult<List<CourseDto>>> GetCourses(string? sort)
   {
-    var spec = new CourseWithCategoriesSpecification();
+    var spec = new CourseWithCategoriesSpecification(sort);
     var courses = await _repository.ListWithSpec(spec);
     return Ok(_mapper.Map<IReadOnlyList<Course>, IReadOnlyList<CourseDto>>(courses));
   }
