@@ -20,6 +20,7 @@ const requests = {
 
 const Courses = {
   list: () => requests.get<PaginatedData<Course>>('/courses'),
+  getById: (id: string) => requests.get<Course>(`/courses/${id}`),
 };
 
 const Categories = {
