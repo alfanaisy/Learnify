@@ -1,3 +1,4 @@
+//Font
 $font-primary: 'Lato';
 
 // RESPONSIVE BREAKPOINTS
@@ -32,5 +33,5 @@ html {
 }
 
 body {
-  font-family: $font-primary;
+  font-family: $font-primary, sans-serif;
 }

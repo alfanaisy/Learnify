@@ -9,6 +9,8 @@ const responseBody = <T>(response: AxiosResponse<T>) => {
   return response.data;
 };
 
+axios.defaults.withCredentials = true;
+
 const requests = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
   post: <T>(url: string, body: object) =>
@@ -28,9 +30,18 @@ const Categories = {
   getCategory: (id: number) => requests.get<Category>(`/categories/${id}`),
 };
 
+const Basket = {
+  get: () => requests.get('/baskets'),
+  addItem: (courseId: string) =>
+    requests.post(`/baskets?courseId=${courseId}`, {}),
+  removeItem: (courseId: string) =>
+    requests.del(`/baskets?courseId=${courseId}`),
+};
+
 const agent = {
   Courses,
   Categories,
+  Basket,
 };
 
 export default agent;

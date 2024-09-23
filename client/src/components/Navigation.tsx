@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import Logo from '../assets/logo.png';
-import { FaBars, FaChevronLeft, FaSearch } from 'react-icons/fa';
+import {
+  FaBars,
+  FaChevronLeft,
+  FaSearch,
+  FaShoppingCart,
+} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -21,15 +27,15 @@ const Navigation = () => {
                   <FaChevronLeft />
                 </li>
                 <li className="nav-menu-items__header">Navigation</li>
-                <li>Categories</li>
                 <li>Courses</li>
               </ul>
             </nav>
           </div>
           <img className="nav__left__logo" src={Logo} alt="Logo" />
           <ul className="nav__left__list">
-            <div className="nav__left__list__item">Categories</div>
-            <div className="nav__left__list__item">Courses</div>
+            <Link to="/">
+              <li className="nav__left__list__item">Home</li>
+            </Link>
           </ul>
         </div>
         <div className="nav__right">
@@ -43,6 +49,10 @@ const Navigation = () => {
               <FaSearch />
             </button>
           </form>
+          <div className="nav__right__cart">
+            <FaShoppingCart />
+            <span className="nav__right__cart__count"></span>
+          </div>
         </div>
       </div>
     </div>
