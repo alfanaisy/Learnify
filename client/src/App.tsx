@@ -7,8 +7,33 @@ import 'antd/dist/reset.css';
 import CategoryPage from './pages/CategoryPage';
 import DescriptionPage from './pages/DescriptionPage';
 import BasketPage from './pages/BasketPage';
+import { useStoreContext } from './context/storeContext';
+import { useEffect } from 'react';
+import agent from './actions/agent';
 
 function App() {
+  const { setBasket } = useStoreContext();
+
+  const getCookie = (name: string) => {
+    return (
+      document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() ||
+      ''
+    );
+  };
+
+  useEffect(() => {
+    const clientId = getCookie('clientId');
+    if (clientId) {
+      agent.Baskets.get()
+        .then((response) => {
+          setBasket(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [setBasket]);
+
   const router = createBrowserRouter([
     {
       path: '/',

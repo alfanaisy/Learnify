@@ -4,12 +4,14 @@ import { FaStar, FaStarHalf } from 'react-icons/fa';
 import { Course } from '../models/course';
 import { Link } from 'react-router-dom';
 import agent from '../actions/agent';
+import { useStoreContext } from '../context/storeContext';
 
 interface Props {
   course: Course;
 }
 
 const ShowCourses = ({ course }: Props) => {
+  const { basket, setBasket } = useStoreContext();
   const [spanVal, setSpanVal] = useState<number>();
 
   const checkWidth = () => {
@@ -44,9 +46,13 @@ const ShowCourses = ({ course }: Props) => {
   };
 
   const addToCart = (courseId: string) => {
-    agent.Baskets.addItem(courseId).catch((error) => {
-      console.log(error);
-    });
+    agent.Baskets.addItem(courseId)
+      .then((response) => {
+        setBasket(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -64,12 +70,20 @@ const ShowCourses = ({ course }: Props) => {
         </div>
         <div className="course__bottom">
           <div className="course__bottom__price">{course.price}</div>
-          <div
-            className="course__bottom__cart"
-            onClick={() => addToCart(course.id)}
-          >
-            Add to Cart
-          </div>
+          {basket?.items.find((item) => item.courseId === course.id) !==
+          undefined ? (
+            <Link to={'/basket'}>
+              {' '}
+              <div className="course__bottom__cart">Go to Cart</div>{' '}
+            </Link>
+          ) : (
+            <div
+              className="course__bottom__cart"
+              onClick={() => addToCart(course.id)}
+            >
+              Add to Cart
+            </div>
+          )}
         </div>
       </Card>
     </Col>

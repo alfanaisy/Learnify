@@ -7,13 +7,17 @@ import {
   FaShoppingCart,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useStoreContext } from '../context/storeContext';
 
 const Navigation = () => {
+  const { basket } = useStoreContext();
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => {
     setSidebar(!sidebar);
   };
+
+  const basketCount = basket?.items.length;
 
   return (
     <div className="nav-container">
@@ -49,10 +53,14 @@ const Navigation = () => {
               <FaSearch />
             </button>
           </form>
-          <div className="nav__right__cart">
-            <FaShoppingCart />
-            <span className="nav__right__cart__count"></span>
-          </div>
+          <Link to={'/basket'}>
+            <div className="nav__right__cart">
+              <FaShoppingCart />
+              {basketCount! > 0 && (
+                <span className="nav__right__cart__count">{basketCount}</span>
+              )}
+            </div>
+          </Link>
         </div>
       </div>
     </div>
