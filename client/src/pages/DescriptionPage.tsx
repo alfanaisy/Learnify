@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { Course } from '../models/course';
 import { useParams } from 'react-router-dom';
 import agent from '../actions/agent';
+import { useStoreContext } from '../context/storeContext';
+import { Link } from 'react-router-dom';
 
 const DescriptionPage = () => {
   const [course, setCourse] = useState<Course>();
+  const { basket, setBasket } = useStoreContext();
 
   const { id } = useParams();
 
@@ -14,6 +17,16 @@ const DescriptionPage = () => {
       setCourse(response);
     });
   }, [id]);
+
+  const addToCart = (courseId: string) => {
+    agent.Baskets.addItem(courseId)
+      .then((response) => {
+        setBasket(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const parseDate = (date: Date | undefined) => {
     if (date === undefined)
@@ -109,10 +122,10 @@ const DescriptionPage = () => {
             </div>
             <div className="description-page__sidebar__box__learning__content">
               <ul className="description-page__sidebar__box__learning__content__list">
-                {course?.learnings.map((learning) => {
+                {course?.learnings.map((learning, idx) => {
                   return (
                     <li
-                      key={learning.id}
+                      key={idx}
                       className="description-page__sidebar__box__learning__content__list__item"
                     >
                       <span className="description-page__sidebar__box__learning__content__list__item__span">
@@ -126,7 +139,23 @@ const DescriptionPage = () => {
             </div>
           </div>
           <div className="description-page__sidebar__box__button">
-            <div className="description-page__sidebar__box__button__text">
+            {basket?.items.find((item) => item.courseId === course?.id) !==
+            undefined ? (
+              <Link
+                className="description-page__sidebar__box__button--cart"
+                to={'/basket'}
+              >
+                Go to Cart
+              </Link>
+            ) : (
+              <div
+                className="description-page__sidebar__box__button--cart"
+                onClick={() => addToCart(course!.id)}
+              >
+                Add to Cart
+              </div>
+            )}
+            <div className="description-page__sidebar__box__button--text">
               Book Now
             </div>
           </div>
@@ -138,10 +167,10 @@ const DescriptionPage = () => {
             </div>
             <div className="description-page__sidebar__body__requirements__content">
               <ul className="description-page__sidebar__body__requirements__content__list">
-                {course?.requirements.map((requirement) => {
+                {course?.requirements.map((requirement, idx) => {
                   return (
                     <li
-                      key={requirement.id}
+                      key={idx}
                       className="description-page__sidebar__body__requirements__content__list__item"
                     >
                       <span className="description-page__sidebar__body__requirements__content__list__item__span">
