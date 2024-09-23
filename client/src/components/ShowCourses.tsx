@@ -44,7 +44,7 @@ const ShowCourses = ({ course }: Props) => {
   };
 
   const addToCart = (courseId: string) => {
-    agent.Basket.addItem(courseId).catch((error) => {
+    agent.Baskets.addItem(courseId).catch((error) => {
       console.log(error);
     });
   };

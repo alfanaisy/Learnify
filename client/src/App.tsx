@@ -6,6 +6,7 @@ import Layout from './layout';
 import 'antd/dist/reset.css';
 import CategoryPage from './pages/CategoryPage';
 import DescriptionPage from './pages/DescriptionPage';
+import BasketPage from './pages/BasketPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -32,6 +33,10 @@ function App() {
         {
           path: '/course/:id',
           element: <DescriptionPage />,
+        },
+        {
+          path: '/basket',
+          element: <BasketPage />,
         },
       ],
     },
