@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
-import agent from '../actions/agent';
-import { Basket, CourseItem } from '../models/basket';
 import { Table } from 'antd';
 import { FaTrash } from 'react-icons/fa';
-import { useStoreContext } from '../context/storeContext';
 import { Link } from 'react-router-dom';
+import agent from '../actions/agent';
+import { CourseItem } from '../models/basket';
+import { removeItem } from '../redux/slices/basketSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 
 const BasketPage = () => {
-  const { basket, removeItem } = useStoreContext();
-  const [items, setItems] = useState<Basket | null>();
+  const { basket } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
 
   const basketCount = basket?.items.length || 0;
   const total = basket?.items.reduce((sum, item) => sum + item.price, 0);
 
-  const assignKey = (items: Basket | null) => {
-    items?.items.map((item, index) => {
-      Object.assign(item, { key: index });
-    });
-
-    setItems(items);
-  };
-
   const removeBasketItem = (courseId: string) => {
     agent.Baskets.removeItem(courseId)
       .then(() => {
-        removeItem(courseId);
+        dispatch(removeItem({ courseId }));
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    assignKey(basket);
-  }, [basket]);
 
   const columns = [
     {
@@ -79,7 +67,11 @@ const BasketPage = () => {
       } in the Cart`}</h2>
       <div className="basket-page__body">
         <div className="basket-page__body__table">
-          <Table columns={columns} dataSource={items?.items} />
+          <Table
+            columns={columns}
+            dataSource={basket?.items}
+            rowKey={'courseId'}
+          />
         </div>
         {total! > 0 && (
           <div className="basket-page__body__summary">

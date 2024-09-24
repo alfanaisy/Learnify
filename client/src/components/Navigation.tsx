@@ -7,11 +7,12 @@ import {
   FaShoppingCart,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useStoreContext } from '../context/storeContext';
+import { useAppSelector } from '../redux/store/configureStore';
 
 const Navigation = () => {
-  const { basket } = useStoreContext();
   const [sidebar, setSidebar] = useState(false);
+
+  const { basket } = useAppSelector((state) => state.basket);
 
   const showSidebar = () => {
     setSidebar(!sidebar);

@@ -7,12 +7,13 @@ import 'antd/dist/reset.css';
 import CategoryPage from './pages/CategoryPage';
 import DescriptionPage from './pages/DescriptionPage';
 import BasketPage from './pages/BasketPage';
-import { useStoreContext } from './context/storeContext';
 import { useEffect } from 'react';
 import agent from './actions/agent';
+import { useAppDispatch } from './redux/store/configureStore';
+import { setBasket } from './redux/slices/basketSlice';
 
 function App() {
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
 
   const getCookie = (name: string) => {
     return (
@@ -26,13 +27,13 @@ function App() {
     if (clientId) {
       agent.Baskets.get()
         .then((response) => {
-          setBasket(response);
+          dispatch(setBasket(response));
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  }, [setBasket]);
+  }, [dispatch]);
 
   const router = createBrowserRouter([
     {

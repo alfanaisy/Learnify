@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Course } from '../models/course';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import agent from '../actions/agent';
-import { useStoreContext } from '../context/storeContext';
-import { Link } from 'react-router-dom';
+import { Course } from '../models/course';
+import { setBasket } from '../redux/slices/basketSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 
 const DescriptionPage = () => {
   const [course, setCourse] = useState<Course>();
-  const { basket, setBasket } = useStoreContext();
+
+  const { basket } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
     agent.Courses.getById(id!).then((response) => {
-      console.log(response);
       setCourse(response);
     });
   }, [id]);
@@ -21,7 +22,7 @@ const DescriptionPage = () => {
   const addToCart = (courseId: string) => {
     agent.Baskets.addItem(courseId)
       .then((response) => {
-        setBasket(response);
+        dispatch(setBasket(response));
       })
       .catch((error) => {
         console.log(error);
