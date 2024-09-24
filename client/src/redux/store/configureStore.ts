@@ -1,6 +1,15 @@
-import { legacy_createStore } from 'redux';
-import loginReducer from '../loginReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { loginSlice } from '../slices/loginSlice';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-export const configureStore = () => {
-  return legacy_createStore(loginReducer);
-};
+export const store = configureStore({
+  reducer: {
+    login: loginSlice.reducer,
+  },
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
