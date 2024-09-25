@@ -1,8 +1,10 @@
 using API.ErrorResponse;
 using API.Helpers;
 using API.Middleware;
+using Entity;
 using Entity.Interfaces;
 using Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,6 +42,14 @@ builder.Services.AddCors(options => {
     });
 });
 
+// Identiry
+builder.Services.AddIdentityCore<User>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<StoreContext>();
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 builder.Services.Configure<ApiBehaviorOptions>(options => {
     options.InvalidModelStateResponseFactory = actionContext => {
         var errors = actionContext.ModelState
@@ -64,9 +74,10 @@ var services = scope.ServiceProvider;
 var logger = services.GetRequiredService<ILogger<Program>>();
 try
 {
+    var userManager = services.GetRequiredService<UserManager<User>>();
     var context = services.GetRequiredService<StoreContext>();
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context, logger);
+    await StoreContextSeed.SeedAsync(context, logger, userManager);
 }
 catch (Exception ex)
 {

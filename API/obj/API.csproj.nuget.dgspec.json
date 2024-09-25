@@ -26,6 +26,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "D:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj": {
+                "projectPath": "D:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj"
+              },
               "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj": {
                 "projectPath": "D:\\Devs\\dotnet\\Learnify\\Infrastructure\\Infrastructure.csproj"
               }

@@ -133,3 +133,17 @@ D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Work
 D:\Devs\dotnet\Learnify\API\obj\Debug\net8.0\API.sourcelink.json
 D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\AutoMapper.dll
 D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
