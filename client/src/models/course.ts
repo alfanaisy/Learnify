@@ -25,3 +25,11 @@ export interface Requirement {
   id: number;
   name: string;
 }
+
+export interface CourseParams {
+  sort: string;
+  search?: string;
+  pageIndex: number;
+  pageSize: number;
+  category?: number;
+}

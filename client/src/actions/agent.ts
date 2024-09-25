@@ -13,7 +13,8 @@ const responseBody = <T>(response: AxiosResponse<T>) => {
 axios.defaults.withCredentials = true;
 
 const requests = {
-  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+  get: <T>(url: string, params?: URLSearchParams) =>
+    axios.get<T>(url, { params }).then(responseBody),
   post: <T>(url: string, body: object) =>
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: object) =>
@@ -22,7 +23,8 @@ const requests = {
 };
 
 const Courses = {
-  list: () => requests.get<PaginatedData<Course>>('/courses'),
+  list: (params?: URLSearchParams) =>
+    requests.get<PaginatedData<Course>>('/courses', params),
   getById: (id: string) => requests.get<Course>(`/courses/${id}`),
 };
 

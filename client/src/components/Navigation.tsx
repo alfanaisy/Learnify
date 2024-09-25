@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import Logo from '../assets/logo.png';
 import {
   FaBars,
@@ -7,12 +7,25 @@ import {
   FaShoppingCart,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../redux/store/configureStore';
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
+import { setCourseParams } from '../redux/slices/courseSlice';
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const { basket } = useAppSelector((state) => state.basket);
+
+  const dispatch = useAppDispatch();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  const onSearch = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(setCourseParams({ search: searchText }));
+  };
 
   const showSidebar = () => {
     setSidebar(!sidebar);
@@ -44,11 +57,13 @@ const Navigation = () => {
           </ul>
         </div>
         <div className="nav__right">
-          <form className="nav__right__search">
+          <form onSubmit={onSearch} className="nav__right__search">
             <input
               type="text"
               className="nav__right__search__input"
               placeholder="Search Courses..."
+              onChange={handleChange}
+              value={searchText}
             />
             <button className="nav__right__search__button">
               <FaSearch />

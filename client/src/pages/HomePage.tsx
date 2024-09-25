@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import ShowCourses from '../components/ShowCourses';
 
 import { Card, Col, Radio, Row } from 'antd';
-import { coursesSelector, getCoursesAsync } from '../redux/slices/courseSlice';
+import {
+  coursesSelector,
+  getCoursesAsync,
+  setCourseParams,
+} from '../redux/slices/courseSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 import { categoriesSelector } from '../redux/slices/categorySlice';
 
@@ -15,15 +19,17 @@ const sortOptions = [
 const HomePage = () => {
   const courses = useAppSelector(coursesSelector.selectAll);
   const dispatch = useAppDispatch();
-  const { coursesLoaded } = useAppSelector((state) => state.course);
+  const { coursesLoaded, courseParams } = useAppSelector(
+    (state) => state.course
+  );
 
   const categories = useAppSelector(categoriesSelector.selectAll);
 
   const getCategories = () => {
-    const catArray: { value: string; label: string }[] = [];
+    const catArray: { value: number; label: string }[] = [];
 
     categories.forEach((category) => {
-      catArray.push({ value: category.id.toString(), label: category.name });
+      catArray.push({ value: category.id, label: category.name });
     });
 
     return catArray;
@@ -42,10 +48,22 @@ const HomePage = () => {
       <Row gutter={[24, 32]}>
         <Col span={4}>
           <Card title="Sorting Options">
-            <Radio.Group options={sortOptions} />
+            <Radio.Group
+              value={courseParams.sort}
+              options={sortOptions}
+              onChange={(e) => {
+                dispatch(setCourseParams({ sort: e.target.value }));
+              }}
+            />
           </Card>
           <Card title="Choose Category">
-            <Radio.Group options={getCategories()} />
+            <Radio.Group
+              value={courseParams.category}
+              options={getCategories()}
+              onChange={(e) => {
+                dispatch(setCourseParams({ category: e.target.value }));
+              }}
+            />
           </Card>
         </Col>
         <Col span={20}>
