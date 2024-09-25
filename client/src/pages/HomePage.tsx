@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import ShowCourses from '../components/ShowCourses';
 
-import { Card, Col, Radio, Row } from 'antd';
+import { Card, Col, Pagination, Radio, Row } from 'antd';
 import {
   coursesSelector,
   getCoursesAsync,
   setCourseParams,
+  setPageNumber,
 } from '../redux/slices/courseSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 import { categoriesSelector } from '../redux/slices/categorySlice';
@@ -19,7 +20,7 @@ const sortOptions = [
 const HomePage = () => {
   const courses = useAppSelector(coursesSelector.selectAll);
   const dispatch = useAppDispatch();
-  const { coursesLoaded, courseParams } = useAppSelector(
+  const { coursesLoaded, courseParams, pagination } = useAppSelector(
     (state) => state.course
   );
 
@@ -33,6 +34,10 @@ const HomePage = () => {
     });
 
     return catArray;
+  };
+
+  const onChange = (pageNumber: number) => {
+    dispatch(setPageNumber({ pageIndex: pageNumber }));
   };
 
   useEffect(() => {
@@ -73,6 +78,16 @@ const HomePage = () => {
                 return <ShowCourses key={course.id} course={course} />;
               })}
           </Row>
+          <div className="pagination">
+            {pagination && (
+              <Pagination
+                defaultCurrent={pagination.pageIndex}
+                total={pagination.totalCount}
+                pageSize={pagination.pageSize}
+                onChange={onChange}
+              />
+            )}
+          </div>
         </Col>
       </Row>
     </div>
