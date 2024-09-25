@@ -1,23 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import agent from '../actions/agent';
-import { Course } from '../models/course';
 import { addBasketItemAsync } from '../redux/slices/basketSlice';
+import { coursesSelector, getCourseAsync } from '../redux/slices/courseSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 
 const DescriptionPage = () => {
-  const [course, setCourse] = useState<Course>();
+  const { id } = useParams();
 
+  const course = useAppSelector((state) =>
+    coursesSelector.selectById(state, id!)
+  );
   const { basket } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
 
-  const { id } = useParams();
-
   useEffect(() => {
-    agent.Courses.getById(id!).then((response) => {
-      setCourse(response);
-    });
-  }, [id]);
+    if (!course) dispatch(getCourseAsync({ courseId: id! }));
+  }, [id, course, dispatch]);
 
   const parseDate = (date: Date | undefined) => {
     if (date === undefined)

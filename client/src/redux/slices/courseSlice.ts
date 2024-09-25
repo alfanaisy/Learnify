@@ -21,6 +21,17 @@ export const getCoursesAsync = createAsyncThunk<
   }
 });
 
+export const getCourseAsync = createAsyncThunk<
+  Course | undefined,
+  { courseId: string }
+>('course/getCourseAsync', async ({ courseId }) => {
+  try {
+    return await agent.Courses.getById(courseId);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export const courseSlice = createSlice({
   name: 'course',
   initialState: coursesAdapter.getInitialState({
@@ -38,6 +49,17 @@ export const courseSlice = createSlice({
       state.coursesLoaded = true;
     });
     builder.addCase(getCoursesAsync.rejected, (state) => {
+      state.status = 'idle';
+    });
+
+    builder.addCase(getCourseAsync.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(getCourseAsync.fulfilled, (state, action) => {
+      coursesAdapter.upsertOne(state, action.payload!);
+      state.status = 'idle';
+    });
+    builder.addCase(getCourseAsync.rejected, (state) => {
       state.status = 'idle';
     });
   },
