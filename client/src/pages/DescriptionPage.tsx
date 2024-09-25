@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import agent from '../actions/agent';
 import { Course } from '../models/course';
-import { setBasket } from '../redux/slices/basketSlice';
+import { addBasketItemAsync } from '../redux/slices/basketSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 
 const DescriptionPage = () => {
@@ -18,16 +18,6 @@ const DescriptionPage = () => {
       setCourse(response);
     });
   }, [id]);
-
-  const addToCart = (courseId: string) => {
-    agent.Baskets.addItem(courseId)
-      .then((response) => {
-        dispatch(setBasket(response));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const parseDate = (date: Date | undefined) => {
     if (date === undefined)
@@ -151,7 +141,9 @@ const DescriptionPage = () => {
             ) : (
               <div
                 className="description-page__sidebar__box__button--cart"
-                onClick={() => addToCart(course!.id)}
+                onClick={() =>
+                  dispatch(addBasketItemAsync({ courseId: course!.id }))
+                }
               >
                 Add to Cart
               </div>
