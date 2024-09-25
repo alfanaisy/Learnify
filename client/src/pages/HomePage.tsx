@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Course } from '../models/course';
-import agent from '../actions/agent';
-
-import { Row } from 'antd';
-import { PaginatedData } from '../models/paginatedData';
+import { useEffect } from 'react';
 import ShowCourses from '../components/ShowCourses';
 
+import { Row } from 'antd';
+import { coursesSelector, getCoursesAsync } from '../redux/slices/courseSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
+
 const HomePage = () => {
-  const [data, setData] = useState<PaginatedData<Course>>();
+  const courses = useAppSelector(coursesSelector.selectAll);
+  const dispatch = useAppDispatch();
+  const { coursesLoaded } = useAppSelector((state) => state.course);
 
   useEffect(() => {
-    agent.Courses.list().then((response) => {
-      setData(response);
-    });
-  }, []);
+    if (!coursesLoaded) dispatch(getCoursesAsync());
+  }, [dispatch, coursesLoaded]);
 
   return (
     <div className="course">
@@ -22,8 +21,8 @@ const HomePage = () => {
         <h2>New Courses picked just for you...</h2>
       </div>
       <Row gutter={[24, 32]}>
-        {data &&
-          data.data.map((course) => {
+        {courses &&
+          courses.map((course) => {
             return <ShowCourses key={course.id} course={course} />;
           })}
       </Row>
