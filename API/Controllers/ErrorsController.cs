@@ -1,5 +1,6 @@
 using API.ErrorResponse;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -10,6 +11,13 @@ public class ErrorsController: BaseController
   public ErrorsController(StoreContext context)
   {
     _context = context;
+  }
+
+  [HttpGet("authcheck")]
+  [Authorize]
+  public ActionResult<string> CheckAuthorization()
+  {
+    return "You are authorized";
   }
 
   [HttpGet("notFound")]

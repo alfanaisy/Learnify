@@ -1,3 +1,4 @@
+using System.Text;
 using API.ErrorResponse;
 using API.Helpers;
 using API.Middleware;
@@ -5,9 +6,11 @@ using Entity;
 using Entity.Interfaces;
 using Infrastructure;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var MyCorsPolicy = "CorsPolicy";
 var builder = WebApplication.CreateBuilder(args);
@@ -48,7 +51,17 @@ builder.Services.AddIdentityCore<User>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StoreContext>();
 
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:TokenKey"]!))
+        };
+    });
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<TokenService>();
@@ -100,6 +113,7 @@ if (app.Environment.IsDevelopment())
 app.UseStatusCodePagesWithReExecute("/redirect/{0}");
 app.UseRouting();
 app.UseCors(MyCorsPolicy);
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
