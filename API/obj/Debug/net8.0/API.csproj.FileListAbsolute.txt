@@ -147,3 +147,4 @@ D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.d
 D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Devs\dotnet\Learnify\API\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll

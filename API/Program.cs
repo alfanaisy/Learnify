@@ -4,6 +4,7 @@ using API.Middleware;
 using Entity;
 using Entity.Interfaces;
 using Infrastructure;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,8 @@ builder.Services.AddIdentityCore<User>()
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<TokenService>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options => {
     options.InvalidModelStateResponseFactory = actionContext => {
