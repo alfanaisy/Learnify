@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import Login from './pages/Login';
+import LoginPage from './pages/Login';
 import DetailPage from './pages/DetailPage';
 import Layout from './layout';
 import 'antd/dist/reset.css';
@@ -46,7 +46,7 @@ function App() {
         },
         {
           path: '/login',
-          element: <Login />,
+          element: <LoginPage />,
         },
         {
           path: '/detail',

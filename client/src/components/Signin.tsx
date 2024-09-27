@@ -6,7 +6,7 @@ import Text from 'antd/es/typography/Text';
 import { Content } from 'antd/es/layout/layout';
 import agent from '../actions/agent';
 
-const Signin = () => {
+const Signin = ({ toggleRegister }: { toggleRegister: () => void }) => {
   const [values, setValues] = useState<Login>({
     email: '',
     password: '',
@@ -83,7 +83,9 @@ const Signin = () => {
           </Form.Item>
         </Form>
       </Content>
-      <div className="log-in-card__toggle">Not a user yet? Register here</div>
+      <div className="log-in-card__toggle" onClick={toggleRegister}>
+        Not a user yet? Register here
+      </div>
     </Card>
   );
 };
