@@ -1,10 +1,11 @@
+import { Button, Card, Form, Input, notification, Typography } from 'antd';
+import { Content } from 'antd/es/layout/layout';
+import Text from 'antd/es/typography/Text';
+import Title from 'antd/es/typography/Title';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { Login } from '../models/user';
-import { Button, Card, Form, Input, Typography } from 'antd';
-import Title from 'antd/es/typography/Title';
-import Text from 'antd/es/typography/Text';
-import { Content } from 'antd/es/layout/layout';
-import agent from '../actions/agent';
+import { signInUser } from '../redux/slices/userSlice';
+import { useAppDispatch } from '../redux/store/configureStore';
 
 const Signin = ({ toggleRegister }: { toggleRegister: () => void }) => {
   const [values, setValues] = useState<Login>({
@@ -12,19 +13,35 @@ const Signin = ({ toggleRegister }: { toggleRegister: () => void }) => {
     password: '',
   });
 
+  const dispatch = useAppDispatch();
+
   const { email, password } = values;
+  const [form] = Form.useForm();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
+  const resetForm = () => {
+    setValues({ ...values, email: '', password: '' });
+    form.resetFields();
+  };
+
   const handleLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && password.length >= 6) {
-      const response = await agent.Users.login(values);
-      setValues({ ...values, email: '', password: '' });
-      console.log(response);
+
+    try {
+      if (email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && password.length >= 6) {
+        await dispatch(signInUser(values));
+      }
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      notification.error({
+        message: 'Please check your email or password',
+      });
+      resetForm();
     }
   };
 
@@ -45,6 +62,7 @@ const Signin = ({ toggleRegister }: { toggleRegister: () => void }) => {
           wrapperCol={{ span: 16 }}
           autoComplete="off"
           onSubmitCapture={handleLogin}
+          form={form}
         >
           <Form.Item
             label="Email"

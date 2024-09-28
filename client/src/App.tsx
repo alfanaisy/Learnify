@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import agent from './actions/agent';
 import { useAppDispatch } from './redux/store/configureStore';
 import { setBasket } from './redux/slices/basketSlice';
+import Categories from './components/Categories';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -42,7 +43,12 @@ function App() {
       children: [
         {
           index: true,
-          element: <HomePage />,
+          element: (
+            <>
+              <Categories />
+              <HomePage />
+            </>
+          ),
         },
         {
           path: '/login',

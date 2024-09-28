@@ -1,8 +1,9 @@
-import { Button, Card, Form, Input, Typography } from 'antd';
+import { Button, Card, Form, Input, notification, Typography } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import agent from '../actions/agent';
 import { Register } from '../models/user';
+import { registerUser } from '../redux/slices/userSlice';
+import { useAppDispatch } from '../redux/store/configureStore';
 
 const RegisterComponent = ({
   toggleRegister,
@@ -15,6 +16,10 @@ const RegisterComponent = ({
     password: '',
   });
 
+  const dispatch = useAppDispatch();
+
+  const [form] = Form.useForm();
+
   const { Title, Text } = Typography;
 
   const { username, email, password } = values;
@@ -24,16 +29,29 @@ const RegisterComponent = ({
     setValues({ ...values, [name]: value });
   };
 
+  const resetForm = () => {
+    setValues({ ...values, username: '', email: '', password: '' });
+    form.resetFields();
+  };
+
   const handleRegister = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (
-      username.length >= 5 &&
-      email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
-      password.length >= 6
-    ) {
-      const response = await agent.Users.register(values);
-      setValues({ ...values, username: '', email: '', password: '' });
-      console.log(response);
+
+    try {
+      if (
+        username.length >= 5 &&
+        email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
+        password.length >= 6
+      ) {
+        await dispatch(registerUser(values));
+      }
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      notification.error({
+        message: 'Please check your credentials',
+      });
+      resetForm();
     }
   };
 
@@ -54,6 +72,7 @@ const RegisterComponent = ({
           wrapperCol={{ span: 16 }}
           autoComplete="off"
           onSubmitCapture={handleRegister}
+          form={form}
         >
           <Form.Item
             label="Username"
