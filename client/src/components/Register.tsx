@@ -4,6 +4,7 @@ import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { Register } from '../models/user';
 import { registerUser } from '../redux/slices/userSlice';
 import { useAppDispatch } from '../redux/store/configureStore';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterComponent = ({
   toggleRegister,
@@ -15,6 +16,8 @@ const RegisterComponent = ({
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -44,6 +47,7 @@ const RegisterComponent = ({
         password.length >= 6
       ) {
         await dispatch(registerUser(values));
+        navigate('/profile', { replace: true });
       }
       resetForm();
     } catch (err) {

@@ -6,12 +6,15 @@ import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { Login } from '../models/user';
 import { signInUser } from '../redux/slices/userSlice';
 import { useAppDispatch } from '../redux/store/configureStore';
+import { useNavigate } from 'react-router-dom';
 
 const Signin = ({ toggleRegister }: { toggleRegister: () => void }) => {
   const [values, setValues] = useState<Login>({
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -34,6 +37,7 @@ const Signin = ({ toggleRegister }: { toggleRegister: () => void }) => {
     try {
       if (email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && password.length >= 6) {
         await dispatch(signInUser(values));
+        navigate('/profile', { replace: true });
       }
       resetForm();
     } catch (err) {

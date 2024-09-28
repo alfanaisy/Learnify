@@ -13,6 +13,7 @@ import { useAppDispatch } from './redux/store/configureStore';
 import { setBasket } from './redux/slices/basketSlice';
 import Categories from './components/Categories';
 import Dashboard from './pages/Dashboard';
+import { getUser } from './redux/slices/userSlice';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ function App() {
           console.log(error);
         });
     }
+    dispatch(getUser());
   }, [dispatch]);
 
   const router = createBrowserRouter([
