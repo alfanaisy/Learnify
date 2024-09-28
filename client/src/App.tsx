@@ -12,6 +12,7 @@ import agent from './actions/agent';
 import { useAppDispatch } from './redux/store/configureStore';
 import { setBasket } from './redux/slices/basketSlice';
 import Categories from './components/Categories';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -69,6 +70,10 @@ function App() {
         {
           path: '/basket',
           element: <BasketPage />,
+        },
+        {
+          path: '/profile',
+          element: <Dashboard />,
         },
       ],
     },

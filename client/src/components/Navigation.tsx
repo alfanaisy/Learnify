@@ -6,17 +6,26 @@ import {
   FaSearch,
   FaShoppingCart,
 } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 import { setCourseParams } from '../redux/slices/courseSlice';
+import UserMenu from './UserMenu';
+import { signOut } from '../redux/slices/userSlice';
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
   const [searchText, setSearchText] = useState('');
 
   const { basket } = useAppSelector((state) => state.basket);
+  const { user } = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+  const signout = () => {
+    dispatch(signOut());
+    navigate('/', { replace: true });
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -48,9 +57,20 @@ const Navigation = () => {
                 <Link to={'/'}>
                   <li>Home</li>
                 </Link>
-                <Link to={'/login'}>
-                  <li>Login</li>
-                </Link>
+                {user ? (
+                  <>
+                    <Link to={'/profile'}>
+                      <li>Profile</li>
+                    </Link>
+                    <div onClick={signout}>
+                      <li>Log out</li>
+                    </div>
+                  </>
+                ) : (
+                  <Link to={'/login'}>
+                    <li>Login</li>
+                  </Link>
+                )}
               </ul>
             </nav>
           </div>
@@ -59,9 +79,15 @@ const Navigation = () => {
             <Link to="/">
               <li className="nav__left__list__item">Home</li>
             </Link>
-            <Link to="/login">
-              <li className="nav__left__list__item">Login</li>
-            </Link>
+            {user ? (
+              <li className="nav__left__list__item">
+                <UserMenu />
+              </li>
+            ) : (
+              <Link to="/login">
+                <li className="nav__left__list__item">Login</li>
+              </Link>
+            )}
           </ul>
         </div>
         <div className="nav__right">
