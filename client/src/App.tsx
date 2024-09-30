@@ -1,41 +1,24 @@
+import 'antd/dist/reset.css';
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Categories from './components/Categories';
+import Layout from './layout';
+import BasketPage from './pages/BasketPage';
+import CategoryPage from './pages/CategoryPage';
+import Dashboard from './pages/Dashboard';
+import DescriptionPage from './pages/DescriptionPage';
+import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/Login';
-import DetailPage from './pages/DetailPage';
-import Layout from './layout';
-import 'antd/dist/reset.css';
-import CategoryPage from './pages/CategoryPage';
-import DescriptionPage from './pages/DescriptionPage';
-import BasketPage from './pages/BasketPage';
-import { useEffect } from 'react';
-import agent from './actions/agent';
-import { useAppDispatch } from './redux/store/configureStore';
-import { setBasket } from './redux/slices/basketSlice';
-import Categories from './components/Categories';
-import Dashboard from './pages/Dashboard';
+import { fetchBasketAsync } from './redux/slices/basketSlice';
 import { getUser } from './redux/slices/userSlice';
+import { useAppDispatch } from './redux/store/configureStore';
 
 function App() {
   const dispatch = useAppDispatch();
 
-  const getCookie = (name: string) => {
-    return (
-      document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() ||
-      ''
-    );
-  };
-
   useEffect(() => {
-    const clientId = getCookie('clientId');
-    if (clientId) {
-      agent.Baskets.get()
-        .then((response) => {
-          dispatch(setBasket(response));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    dispatch(fetchBasketAsync());
     dispatch(getUser());
   }, [dispatch]);
 
