@@ -72,7 +72,6 @@ public class BasketsController: BaseController
       Response.Cookies.Append("clientId", clientId, options);
     } 
     
-
     var basket = new Basket{ClientId = clientId};
     _context.Baskets.Add(basket);
     return basket;

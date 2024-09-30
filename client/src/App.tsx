@@ -13,6 +13,7 @@ import LoginPage from './pages/Login';
 import { fetchBasketAsync } from './redux/slices/basketSlice';
 import { getUser } from './redux/slices/userSlice';
 import { useAppDispatch } from './redux/store/configureStore';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -58,7 +59,11 @@ function App() {
         },
         {
           path: '/profile',
-          element: <Dashboard />,
+          element: (
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          ),
         },
       ],
     },
