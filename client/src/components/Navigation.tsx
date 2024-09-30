@@ -1,5 +1,4 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import Logo from '../assets/logo.png';
 import {
   FaBars,
   FaChevronLeft,
@@ -7,10 +6,12 @@ import {
   FaShoppingCart,
 } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
+import Logo from '../assets/logo.png';
+import { removeBasket } from '../redux/slices/basketSlice';
 import { setCourseParams } from '../redux/slices/courseSlice';
-import UserMenu from './UserMenu';
 import { signOut } from '../redux/slices/userSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
+import UserMenu from './UserMenu';
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -24,6 +25,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const signout = () => {
     dispatch(signOut());
+    dispatch(removeBasket());
     navigate('/', { replace: true });
   };
 

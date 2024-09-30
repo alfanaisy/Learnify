@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { Login, Register, User } from '../../models/user';
 import agent from '../../actions/agent';
+import { setBasket } from './basketSlice';
 
 interface UserState {
   user: User | null;
@@ -14,8 +15,10 @@ export const signInUser = createAsyncThunk<User, Login>(
   'user/signin',
   async (data, thunkAPI) => {
     try {
-      const user = await agent.Users.login(data);
-      localStorage.setItem('user', JSON.stringify(user));
+      const userData = await agent.Users.login(data);
+      const { basket, ...user } = userData;
+      if (basket) thunkAPI.dispatch(setBasket(basket));
+      localStorage.setItem('user', JSON.stringify(userData));
       return user;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error });

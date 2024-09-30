@@ -2,12 +2,14 @@ import { Dropdown, Menu, MenuProps } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../redux/store/configureStore';
 import { signOut } from '../redux/slices/userSlice';
+import { removeBasket } from '../redux/slices/basketSlice';
 
 const UserMenu = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const signout = () => {
     dispatch(signOut());
+    dispatch(removeBasket());
     navigate('/', { replace: true });
   };
 
