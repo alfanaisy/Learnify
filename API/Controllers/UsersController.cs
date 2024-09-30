@@ -1,9 +1,12 @@
 using API.Dto;
 using API.ErrorResponse;
+using AutoMapper;
 using Entity;
+using Infrastructure;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -11,10 +14,15 @@ public class UsersController: BaseController
 {
   private readonly UserManager<User> _userManager;
   private readonly TokenService _tokenService;
-  public UsersController(UserManager<User> userManager, TokenService tokenService)
+  private readonly StoreContext _context;
+  private readonly IMapper _mapper;
+  public UsersController(UserManager<User> userManager, TokenService tokenService, StoreContext context, IMapper
+  mapper)
   {
     _userManager = userManager;
     _tokenService = tokenService;
+    _context = context;
+    _mapper = mapper;
   }
 
   [HttpPost("login")]
@@ -26,10 +34,22 @@ public class UsersController: BaseController
       return Unauthorized(new ApiResponse(401));
     }
 
+    var userBasket = await ExtractBasket(user.UserName!);
+    var basket = await ExtractBasket(Request.Cookies["clientId"]!);
+
+    if(basket != null)
+    {
+      if(userBasket != null) _context.Baskets.Remove(userBasket);
+      basket.ClientId = user.UserName!;
+      Response.Cookies.Delete("clientId");
+      await _context.SaveChangesAsync();
+    }
+
     return new UserDto
     {
       Email = user.Email!,
-      Token = await _tokenService.GenerateToken(user)
+      Token = await _tokenService.GenerateToken(user),
+      Basket = basket != null ? _mapper.Map<Basket, BasketDto>(basket) : _mapper.Map<Basket, BasketDto>(userBasket!)
     };
   }
 
@@ -56,5 +76,20 @@ public class UsersController: BaseController
       Email = user.Email!,
       Token = await _tokenService.GenerateToken(user)
     };
+  }
+
+  private async Task<Basket?> ExtractBasket(string clientId)
+  {
+    if(string.IsNullOrEmpty(clientId))
+    {
+      Response.Cookies.Delete("clientId");
+      return null;
+    }
+
+    return await _context.Baskets
+      .Include(b => b.Items)
+      .ThenInclude(i => i.Course)
+      .OrderBy(i => i.Id)
+      .FirstOrDefaultAsync(x => x.ClientId == clientId);
   }
 }
