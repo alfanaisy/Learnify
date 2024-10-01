@@ -27,6 +27,12 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ClientSecret")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Baskets");
@@ -253,13 +259,13 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01602fc3-429a-457a-9dfd-91d14aaa5990",
+                            Id = "ea7eecf4-0a2a-4d6a-88d1-8b40dca29e3b",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "5b2eabfc-925d-4123-bc60-d282274fdee3",
+                            Id = "42fe995b-c006-4a4d-a7f7-078152724344",
                             Name = "Instructor",
                             NormalizedName = "INSTRUCTOR"
                         });

@@ -5,6 +5,8 @@ public class Basket
   public int Id { get; set; }
   public required string ClientId { get; set; }
   public List<BasketItem> Items { get; set; } = new List<BasketItem>();
+  public string? PaymentIntentId { get; set; }
+  public string? ClientSecret { get; set; }
 
   public void AddCourseItem(Course course)
   {

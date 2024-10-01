@@ -65,6 +65,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<PaymentService>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options => {
     options.InvalidModelStateResponseFactory = actionContext => {
