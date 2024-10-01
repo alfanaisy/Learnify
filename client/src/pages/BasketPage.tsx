@@ -70,7 +70,7 @@ const BasketPage = () => {
           <div className="basket-page__body__summary">
             <h2>Total</h2>
             <div className="basket-page__body__summary__total">${total}</div>
-            <Link to={'/basket'}>
+            <Link to={'/checkout'}>
               <div className="basket-page__body__summary__checkout">
                 Checkout
               </div>

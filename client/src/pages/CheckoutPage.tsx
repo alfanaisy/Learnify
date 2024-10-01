@@ -9,13 +9,8 @@ const stripePromise = loadStripe(
 );
 
 export default function CheckoutPage() {
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret: '{{CLIENT_SECRET}}',
-  };
-
   return (
-    <Elements stripe={stripePromise} options={options}>
+    <Elements stripe={stripePromise}>
       <Checkout />
     </Elements>
   );
