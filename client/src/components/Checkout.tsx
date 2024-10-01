@@ -2,20 +2,70 @@ import {
   CardCvcElement,
   CardExpiryElement,
   CardNumberElement,
+  useElements,
+  useStripe,
 } from '@stripe/react-stripe-js';
-import { Card, Form, Input } from 'antd';
+import { Card, Form, Input, notification } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import CheckoutSummary from './CheckoutSummary';
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
+import { removeBasket } from '../redux/slices/basketSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const [cardName, setCardName] = useState<string>('');
+
+  const navigate = useNavigate();
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const { basket } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCardName(e.target.value);
   };
 
   const [form] = useForm();
+
+  const handlePayment = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (!stripe || !elements) return;
+
+    try {
+      const cardElement = elements.getElement(CardNumberElement);
+      const paymentResult = await stripe.confirmCardPayment(
+        basket!.clientSecret!,
+        {
+          payment_method: {
+            card: cardElement!,
+            billing_details: {
+              name: cardName,
+            },
+          },
+        }
+      );
+
+      if (paymentResult.paymentIntent?.status === 'succeeded') {
+        notification.success({
+          message: 'Your payment is successful',
+        });
+
+        dispatch(removeBasket());
+        setTimeout(() => {
+          navigate('/profile');
+        }, 1000);
+      } else {
+        notification.error({
+          message: paymentResult.error?.message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="checkout">
