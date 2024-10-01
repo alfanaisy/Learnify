@@ -12,6 +12,7 @@ import CheckoutSummary from './CheckoutSummary';
 import { useAppDispatch, useAppSelector } from '../redux/store/configureStore';
 import { removeBasket } from '../redux/slices/basketSlice';
 import { useNavigate } from 'react-router-dom';
+import agent from '../actions/agent';
 
 const Checkout = () => {
   const [cardName, setCardName] = useState<string>('');
@@ -54,6 +55,8 @@ const Checkout = () => {
         });
 
         dispatch(removeBasket());
+        await agent.Baskets.clear();
+
         setTimeout(() => {
           navigate('/profile');
         }, 1000);
