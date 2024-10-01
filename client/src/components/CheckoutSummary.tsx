@@ -1,7 +1,14 @@
 import { Button, Card, Divider } from 'antd';
 import { useAppSelector } from '../redux/store/configureStore';
+import { Stripe } from '@stripe/stripe-js';
+import { SyntheticEvent } from 'react';
 
-const CheckoutSummary = () => {
+interface Props {
+  stripe: Stripe | null;
+  handleSubmit: (e: SyntheticEvent) => Promise<void>;
+}
+
+const CheckoutSummary = ({ stripe, handleSubmit }: Props) => {
   const { basket } = useAppSelector((state) => state.basket);
   const total = basket?.items.reduce((sum, item) => sum + item.price, 0);
 
@@ -19,6 +26,8 @@ const CheckoutSummary = () => {
           type="primary"
           className="checkout__summary__button"
           size="large"
+          onClick={handleSubmit}
+          disabled={!stripe}
         >
           Make Payment
         </Button>
