@@ -37,6 +37,7 @@ const Users = {
   register: (values: Register) =>
     requests.post<User>('/users/register', values),
   addCourse: () => requests.post('/users/purchaseCourses', {}),
+  currentUser: () => requests.get<User>('/users/currentUser'),
 };
 
 const Courses = {
