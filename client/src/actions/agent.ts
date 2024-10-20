@@ -5,6 +5,7 @@ import { Category } from '../models/category';
 import { Basket } from '../models/basket';
 import { Login, Register, User } from '../models/user';
 import { Store } from 'redux';
+import { Lecture } from '../models/lecture';
 
 axios.defaults.baseURL = 'http://localhost:5192/api';
 
@@ -64,12 +65,20 @@ const Payments = {
   paymentIntent: () => requests.post<Basket>('/payments', {}),
 };
 
+const Lectures = {
+  getLectures: (courseId: string) =>
+    requests.get<Lecture>(`/lectures/${courseId}`),
+  setCurrentLecture: (values: { lectureId: number; courseId: string }) =>
+    requests.put<>('/lectures/setCurrentLecture', values),
+};
+
 const agent = {
   Users,
   Courses,
   Categories,
   Baskets,
   Payments,
+  Lectures,
 };
 
 export default agent;
