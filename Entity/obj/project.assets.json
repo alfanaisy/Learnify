@@ -820,11 +820,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj",
+      "projectUniqueName": "D:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj",
       "projectName": "Entity",
-      "projectPath": "d:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj",
+      "projectPath": "D:\\Devs\\dotnet\\Learnify\\Entity\\Entity.csproj",
       "packagesPath": "C:\\Users\\alfan\\.nuget\\packages\\",
-      "outputPath": "d:\\Devs\\dotnet\\Learnify\\Entity\\obj\\",
+      "outputPath": "D:\\Devs\\dotnet\\Learnify\\Entity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\alfan\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -877,7 +877,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
